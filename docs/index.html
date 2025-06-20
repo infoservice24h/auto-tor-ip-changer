@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Auto Tor IP Changer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/3/38/Tor-logo-2011-flat.svg" type="image/svg+xml">
+  <style>
+    :root {
+      --primary: #00bfff;
+      --bg: #0f111a;
+      --text: #f5f5f5;
+      --accent: #1a1a2e;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.4s ease;
+    }
+
+    header {
+      background: #121a2f;
+      padding: 1.5em 1em;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin: 0;
+      color: var(--primary);
+    }
+
+    header p {
+      margin-top: 0.5em;
+      color: #ccc;
+      font-size: 1.1em;
+    }
+
+    nav {
+      margin-top: 1em;
+    }
+
+    nav a {
+      margin: 0 1em;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .toggle-btn {
+      position: absolute;
+      top: 1.2em;
+      right: 1em;
+      background: #222;
+      border: 1px solid #444;
+      border-radius: 4px;
+      padding: 0.3em 0.6em;
+      cursor: pointer;
+      color: #aaa;
+      font-size: 0.9em;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 2em;
+      line-height: 1.7;
+    }
+
+    section {
+      margin-top: 3em;
+      transition: opacity 0.3s ease;
+    }
+
+    h2 {
+      color: var(--primary);
+      margin-top: 2em;
+    }
+
+    code {
+      background: #222;
+      color: #0ff;
+      padding: 0.2em 0.5em;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: var(--accent);
+      padding: 1em;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+
+    a {
+      color: #00d1ff;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2em;
+      font-size: 0.9em;
+      color: #888;
+    }
+
+    .lang-block { display: none; }
+    .lang-block.active { display: block; }
+
+    .svg-icon {
+      width: 1.2em;
+      vertical-align: middle;
+      margin-right: 0.3em;
+    }
+  </style>
+
+  <script>
+    const userPref = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.dataset.theme = userPref ? "dark" : "light";
+  </script>
+  <style>
+    .theme-toggle {
+      position: absolute;
+      top: 1.2em;
+      left: 1em;
+      background: #222;
+      border: 1px solid #444;
+      border-radius: 4px;
+      padding: 0.3em 0.6em;
+      cursor: pointer;
+      color: #aaa;
+      font-size: 0.9em;
+    }
+    .ip-status {
+      margin-top: 1em;
+      font-size: 0.95em;
+      color: #8f8;
+      background: #181a2c;
+      padding: 0.5em 1em;
+      border-radius: 6px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="toggle-btn" onclick="toggleLang()">🌐 PT / EN</div>
+    <div class="theme-toggle" onclick="toggleTheme()">🌓</div>
+    <h1>🧅 Auto Tor IP Changer</h1>
+    <p>Anonimize sua conexão rotacionando IPs com a rede Tor</p>
+    <nav>
+      <a href="#about">Sobre</a>
+      <a href="#features">Recursos</a>
+      <a href="#install">Instalar</a>
+      <a href="#usage">Usar</a>
+      <a href="#more">Mais</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Portuguese -->
+    <div id="pt" class="lang-block active">
+      <section id="about">
+        <h2>📌 O que é?</h2>
+        <p>
+          Ferramenta para trocar automaticamente seu IP através da rede Tor. Ideal para quem valoriza privacidade, automações e segurança online.
+        </p>
+      </section>
+
+      <section id="features">
+        <h2>🚀 Recursos</h2>
+        <ul>
+          <li><img src="https://www.svgrepo.com/show/502991/loop.svg" class="svg-icon"/> Troca de IP por intervalo programado</li>
+          <li><img src="https://www.svgrepo.com/show/494471/security-user.svg" class="svg-icon"/> Privacidade e anonimato garantidos</li>
+          <li><img src="https://www.svgrepo.com/show/533551/install.svg" class="svg-icon"/> Instalação simples no Termux ou Linux</li>
+          <li><img src="https://www.svgrepo.com/show/530381/cron.svg" class="svg-icon"/> Suporte a execução via cron ou manual</li>
+        </ul>
+      </section>
+
+      <section id="install">
+        <h2>⚙️ Instalar</h2>
+        <pre><code>git clone https://github.com/infoservice24h/auto-tor-ip-changer.git
+cd auto-tor-ip-changer
+chmod +x src/install.sh
+sudo ./src/install.sh</code></pre>
+      </section>
+
+      <section id="usage">
+        <h2>🧪 Como usar</h2>
+        <pre><code>python3 /usr/local/bin/auto_tor_ip_changer.py</code></pre>
+      </section>
+
+      <section id="more">
+        <h2>🔗 Saiba mais</h2>
+        <p>
+          Acesse o <a href="https://github.com/infoservice24h/auto-tor-ip-changer">repositório no GitHub</a><br/>
+          Leia o <a href="https://github.com/infoservice24h/auto-tor-ip-changer/blob/main/README.md">README completo</a>
+        </p>
+      </section>
+    </div>
+
+    <!-- English -->
+    <div id="en" class="lang-block">
+      <section id="about">
+        <h2>📌 What is it?</h2>
+        <p>
+          Tool to automatically rotate your IP through the Tor network. Great for privacy, scripting, penetration testing, and automation.
+        </p>
+      </section>
+
+      <section id="features">
+        <h2>🚀 Features</h2>
+        <ul>
+          <li><img src="https://www.svgrepo.com/show/502991/loop.svg" class="svg-icon"/> Scheduled IP change via Tor</li>
+          <li><img src="https://www.svgrepo.com/show/494471/security-user.svg" class="svg-icon"/> Improved anonymity & identity reset</li>
+          <li><img src="https://www.svgrepo.com/show/533551/install.svg" class="svg-icon"/> Simple install on Termux / Linux</li>
+          <li><img src="https://www.svgrepo.com/show/530381/cron.svg" class="svg-icon"/> Cron job ready or manual mode</li>
+        </ul>
+      </section>
+
+      <section id="install">
+        <h2>⚙️ Install</h2>
+        <pre><code>git clone https://github.com/infoservice24h/auto-tor-ip-changer.git
+cd auto-tor-ip-changer
+chmod +x src/install.sh
+sudo ./src/install.sh</code></pre>
+      </section>
+
+      <section id="usage">
+        <h2>🧪 Run</h2>
+        <pre><code>python3 /usr/local/bin/auto_tor_ip_changer.py</code></pre>
+      </section>
+
+      <section id="more">
+        <h2>🔗 Learn more</h2>
+        <p>
+          View the <a href="https://github.com/infoservice24h/auto-tor-ip-changer">GitHub repository</a><br/>
+          Read the <a href="https://github.com/infoservice24h/auto-tor-ip-changer/blob/main/README_en.md">README in English</a>
+        </p>
+      </section>
+    </div>
+  
+    <div id="ipinfo" class="ip-status">🔍 Carregando IP público atual...</div>
+</main>
+
+
+  <footer>
+    Desenvolvido com 💡 por iNFO SERVICE 24h · MIT License
+  </footer>
+
+  <script>
+    function toggleLang() {
+      const pt = document.getElementById("pt");
+      const en = document.getElementById("en");
+      pt.classList.toggle("active");
+      en.classList.toggle("active");
+    }
+  </script>
+
+<script>
+function toggleLang() {
+  const pt = document.getElementById("pt");
+  const en = document.getElementById("en");
+  pt.classList.toggle("active");
+  en.classList.toggle("active");
+}
+
+function toggleTheme() {
+  const current = document.documentElement.dataset.theme;
+  document.documentElement.dataset.theme = current === "dark" ? "light" : "dark";
+}
+
+fetch("https://api64.ipify.org?format=json")
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("ipinfo").innerText = `🌐 IP atual detectado: ${data.ip}`;
+  })
+  .catch(() => {
+    document.getElementById("ipinfo").innerText = "⚠️ Não foi possível detectar seu IP.";
+  });
+</script>
+</body>
+</html>
