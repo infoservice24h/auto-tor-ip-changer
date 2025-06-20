@@ -1,0 +1,10 @@
+[Unit]
+Description=Auto Tor IP Changer Service
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/auto_tor_ip_changer.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
