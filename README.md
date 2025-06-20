@@ -12,4 +12,4 @@ sudo ./src/install.sh
 ```
 
 📄 Documentação: https://infoservice24h.github.io/auto-tor-ip-changer/  
-📘 English version on GitHub: [README_en.md](https://github.com/infoservice24h/auto-tor-ip-changer/blob/main/README_en.md)
+📘 English version: [README_en.md](https://github.com/infoservice24h/auto-tor-ip-changer/blob/main/README_en.md)
